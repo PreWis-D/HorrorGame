@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7291698309838301743
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7291698309838301729}
+  - component: {fileID: 7291698309838301742}
+  - component: {fileID: 7519503855219339928}
+  m_Layer: 0
+  m_Name: Level
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7291698309838301729
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7291698309838301743}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7291698309838301742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7291698309838301743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea48e92ecf7c3f540859e02d915e52ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startLosePanel: {fileID: 0}
+  _player: {fileID: 0}
+  _enemy: {fileID: 0}
+  _cutSceneEnemyKillPlayer: {fileID: 0}
+  _cutScenePlayerDie: {fileID: 0}
+  _yandexSDK: {fileID: 0}
+  _audioManager: {fileID: 0}
+  _directionalLight: {fileID: 0}
+  _isMenu: 0
+  _settingDifficultyData:
+    _settingDifficulties:
+    - _light: 0.5
+      _inventoryMaxCount: 4
+      _enemyWalkSpeed: 1
+      _enemyRunSpeed: 2
+      _enemyDelay: 0.5
+      _enemyWaitingTime: 0.75
+      _enemyFollowTime: 2
+    - _light: 0.25
+      _inventoryMaxCount: 3
+      _enemyWalkSpeed: 2
+      _enemyRunSpeed: 4
+      _enemyDelay: 0.5
+      _enemyWaitingTime: 0.5
+      _enemyFollowTime: 4
+    - _light: 0
+      _inventoryMaxCount: 2
+      _enemyWalkSpeed: 3
+      _enemyRunSpeed: 6
+      _enemyDelay: 0.5
+      _enemyWaitingTime: 0.25
+      _enemyFollowTime: 6
+--- !u!114 &7519503855219339928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7291698309838301743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53fad1edd7326f847bd0f855de76fc6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _totalLevels: 25
+  _minCircledLevel: 4
+  _maxCircledLevel: 25
