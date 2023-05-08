@@ -1,4 +1,3 @@
-using CustomYandexSDK;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
@@ -11,7 +10,6 @@ public class Level : MonoBehaviour
     [SerializeField] private Enemy _enemy;
     [SerializeField] private CutSceneEnemyKillPlayer _cutSceneEnemyKillPlayer;
     [SerializeField] private CutScenePlayerDie _cutScenePlayerDie;
-    [SerializeField] private YandexSDK _yandexSDK;
     [SerializeField] private AudioManager _audioManager;
     [SerializeField] private Light _directionalLight;
     [SerializeField] private bool _isMenu = false;
@@ -45,13 +43,6 @@ public class Level : MonoBehaviour
             _cutSceneEnemyKillPlayer.CutSceneEnded += OnCutSceneEnded;
             _cutScenePlayerDie.CutSceneEnded += OnCutSceneEnded;
             _player.Wined += OnWined;
-
-            #region YandexSDKActions
-            _yandexSDK.AdsOpened += OnAdsOpened;
-            _yandexSDK.AdsClosed += OnAdsClosed;
-            _yandexSDK.AdsClosedWithError += OnAdsClosedWithError;
-            _yandexSDK.AdsOffline += OnAdsOffline;
-            #endregion
         }
 
         _audioManager.AudioListenerState += OnAudioListenerState;
@@ -64,13 +55,6 @@ public class Level : MonoBehaviour
             _cutSceneEnemyKillPlayer.CutSceneEnded -= OnCutSceneEnded;
             _cutScenePlayerDie.CutSceneEnded -= OnCutSceneEnded;
             _player.Wined -= OnWined;
-
-            #region YandexSDKActions
-            _yandexSDK.AdsOpened -= OnAdsOpened;
-            _yandexSDK.AdsClosed -= OnAdsClosed;
-            _yandexSDK.AdsClosedWithError -= OnAdsClosedWithError;
-            _yandexSDK.AdsOffline -= OnAdsOffline;
-            #endregion
         }
 
         _audioManager.AudioListenerState -= OnAudioListenerState;
@@ -85,8 +69,6 @@ public class Level : MonoBehaviour
             if (_enemy != null)
                 _enemy.Activate();
             _player.Activate();
-
-            GetInterstitialAd();
         }
     }
 
@@ -94,15 +76,6 @@ public class Level : MonoBehaviour
     {
         PlayerPrefs.SetInt(CURRENT_DIFFICULTY, difficultyState);
         _sceneChanger.LoadLevel(CurrentLevel);
-    }
-
-    public void GetInterstitialAd()
-    {
-#if UNITY_EDITOR == false && UNITY_WEBGL
-                _yandexSDK.GetInterstitialAd();
-#else
-        OnAdsClosed();
-#endif
     }
 
     public void ExitToMenu()
@@ -169,35 +142,6 @@ public class Level : MonoBehaviour
                 _settingDifficultyData.SettingDifficulties[index].EnemyWaitTime,
                 _settingDifficultyData.SettingDifficulties[index].EnemyFollowTime);
     }
-
-    #region YandexSDKActions
-    private void OnAdsOpened()
-    {
-        if (_enemy != null)
-            _enemy.Deactivate();
-        _player.Deactivate();
-        ChangeVolume(false);
-    }
-
-    private void OnAdsClosed()
-    {
-        if (_enemy != null)
-            _enemy.Activate();
-        _player.Activate();
-        ChangeVolume(true);
-
-    }
-
-    private void OnAdsClosedWithError()
-    {
-        OnAdsClosed();
-    }
-
-    private void OnAdsOffline()
-    {
-        OnAdsClosed();
-    }
-    #endregion
 
     #region AudioManager
     public void ChangeAudioState(bool isListenerOn)

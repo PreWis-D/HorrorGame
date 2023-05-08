@@ -1,6 +1,3 @@
-using Agava.WebUtility;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -14,16 +11,6 @@ public class AudioManager : MonoBehaviour
     public int CurrentAudioState => PlayerPrefs.GetInt(CURRENT_AUDIO_STATE, 1);
 
     public event UnityAction<bool> AudioListenerState;
-
-    private void OnEnable()
-    {
-        WebApplication.InBackgroundChangeEvent += OnInBackgroundChange;
-    }
-
-    private void OnDisable()
-    {
-        WebApplication.InBackgroundChangeEvent -= OnInBackgroundChange;
-    }
 
     private void Start()
     {
