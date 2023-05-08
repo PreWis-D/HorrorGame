@@ -1,6 +1,7 @@
 using EvolveGames;
 using UnityEngine;
 using UnityEngine.Events;
+using Zenject;
 
 [RequireComponent(typeof(PlayerController), typeof(PlayerInput))]
 public class Player : MonoBehaviour

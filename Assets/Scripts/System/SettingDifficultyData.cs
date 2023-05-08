@@ -1,12 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 [System.Serializable]
 public class SettingDifficultyData
 {
-    [SerializeField] private SettingDifficulty[] _settingDifficulties;
+    [SerializeField] private DifficultySettings[] _settingDifficulties;
 
-    public SettingDifficulty[] SettingDifficulties => _settingDifficulties;
+    private const string CURRENT_DIFFICULTY = "CurrentDifficulty";
+
+    public int CurrentDifficulty => PlayerPrefs.GetInt(CURRENT_DIFFICULTY, 0);
+    public DifficultySettings[] SettingDifficulties => _settingDifficulties;
+
+    public void Save(int value)
+    {
+        Debug.Log(value);
+        PlayerPrefs.SetInt(CURRENT_DIFFICULTY, value);
+    }
+
+    public int Load()
+    {
+        return CurrentDifficulty;
+    }
 }

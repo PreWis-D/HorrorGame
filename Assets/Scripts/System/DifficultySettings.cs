@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public struct SettingDifficulty
+public struct DifficultySettings
 {
     [SerializeField] private float _light;    
     [SerializeField] private int _inventoryMaxCount;    

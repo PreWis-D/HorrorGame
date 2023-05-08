@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private AudioClip _audioClipElectro;
     [SerializeField] private AudioClip _audioClipWalk;
     [SerializeField] private AudioClip[] _laughterAudioClips;
+    [SerializeField] private Camera _camera;
 
     private EnemyMover _enemyMover;
     private EnemyStateMachine _stateMachine;
@@ -21,11 +22,10 @@ public class Enemy : MonoBehaviour
     private AudioSource _audioSource;
     private bool _isElectricPlaying;
 
-    public Player Player => _player;
+    public Camera Camera => _camera;
     public EnemyMover EnemyMover => _enemyMover;
     public Vector3 SearchRadius => _searchRadius;
     public Transform TargetPosition => _targetPosition;
-    public bool IsFly => _enemyAnimator.IsFly;
 
     public float FollowTime { get; private set; } = 4f;
     public float WaitingTime { get; private set; } = 0.5f;
@@ -70,7 +70,7 @@ public class Enemy : MonoBehaviour
         StartCoroutine(CheckPlayerInRadius());
     }
 
-    public void Init(float walkSpeed, float runSpeed, float delay, float waitingTime, float followTime)
+    public void Init(float walkSpeed, float runSpeed, float delay, float waitingTime, float followTime, Player player)
     {
         Delay = delay;
         WaitingTime = waitingTime;
@@ -204,7 +204,6 @@ public class Enemy : MonoBehaviour
         if (value)
         {
             _audioSource.loop = true;
-            Debug.Log(audioClip);
             _audioSource.PlayOneShot(audioClip);
         }    
         else

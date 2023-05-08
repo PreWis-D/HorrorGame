@@ -4,7 +4,12 @@ using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
-    [SerializeField] private Level _level;
+    [SerializeField] private SceneChanger _sceneChanger;
+    [SerializeField] private AudioManager _audioManager;
+    [SerializeField] private SettingDifficultyData _settingDifficultyData;
+    [SerializeField] private LevelData _levelData;
+
+    [Header("Panels")]
     [SerializeField] private CanvasFader _mainPanel;
     [SerializeField] private SettingPanel _settingPanel;
     [SerializeField] private ChooseDifficultyPanel _chooseDifficultyPanel;
@@ -12,6 +17,12 @@ public class Menu : MonoBehaviour
     [Header("Buttons")]
     [SerializeField] private Button _playButton;
     [SerializeField] private Button _settingButton;
+
+    private void Awake()
+    {
+        if (Time.deltaTime < 1)
+            Time.timeScale = 1.0f;
+    }
 
     private void OnEnable()
     {
@@ -21,7 +32,7 @@ public class Menu : MonoBehaviour
         _settingPanel.BackMainButtonClicked += OnBackMainButtonClick;
         _chooseDifficultyPanel.DifficultyChoised += OnDifficultyChoised;
 
-        _level.AudioStateChanged += OnAudioListenerState;
+        _audioManager.AudioListenerState += OnAudioListenerState;
     }
 
     private void OnDisable()
@@ -32,18 +43,7 @@ public class Menu : MonoBehaviour
         _settingPanel.BackMainButtonClicked -= OnBackMainButtonClick;
         _chooseDifficultyPanel.DifficultyChoised -= OnDifficultyChoised;
 
-        _level.AudioStateChanged -= OnAudioListenerState;
-    }
-
-    private void Start()
-    {
-        if (Time.timeScale< 1.0f)
-            Time.timeScale = 1.0f;
-    }
-
-    public void SetAudiOn(bool isAudioOn)
-    {
-        _settingPanel.SetAudiOn(isAudioOn);
+        _audioManager.AudioListenerState -= OnAudioListenerState;
     }
 
     private void PlayButtonClick()
@@ -60,7 +60,7 @@ public class Menu : MonoBehaviour
 
     private void OnAudioChanged(bool isAudioOn)
     {
-        _level.ChangeAudioState(isAudioOn);
+        _audioManager.ChangeListenerState(isAudioOn);
     }
 
     private void OnBackMainButtonClick()
@@ -71,11 +71,12 @@ public class Menu : MonoBehaviour
 
     private void OnDifficultyChoised(int difficultyIndex)
     {
-        _level.StartGame(difficultyIndex);
+        _settingDifficultyData.Save(difficultyIndex);
+        _sceneChanger.LoadLevel(_levelData.CurrentLevel);
     }
 
-    private void OnAudioListenerState(bool value)
+    private void OnAudioListenerState(bool isAudioOn)
     {
-        SetAudiOn(value);
+        _settingPanel.SetAudiOn(isAudioOn);
     }
 }

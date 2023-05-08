@@ -5,11 +5,12 @@ using UnityEngine.Events;
 [RequireComponent(typeof(AudioSource))]
 public class CutSceneEnemyKillPlayer : MonoBehaviour
 {
-    [SerializeField] private Player _player;
-    [SerializeField] private Enemy _enemy;
-    [SerializeField] private Camera _enemyCamera;
-    [SerializeField] private Camera _playerCamera;
     [SerializeField] private float _delayPlayAudio = 0.2f;
+
+    private Player _player;
+    private Enemy _enemy;
+    private Camera _enemyCamera;
+    private Camera _playerCamera;
 
     private AudioSource _audioSource;
 
@@ -17,7 +18,7 @@ public class CutSceneEnemyKillPlayer : MonoBehaviour
 
     private void Awake()
     {
-        _audioSource= GetComponent<AudioSource>();
+        _audioSource = GetComponent<AudioSource>();
     }
     private void OnEnable()
     {
@@ -27,6 +28,14 @@ public class CutSceneEnemyKillPlayer : MonoBehaviour
     private void OnDisable()
     {
         _enemy.PlayerReached -= OnPlayerReached;
+    }
+
+    public void Init(Player player, Enemy enemy)
+    {
+        _player = player;
+        _enemy = enemy;
+        _playerCamera = _player.GetComponentInChildren<Camera>();
+        _enemyCamera = _enemy.Camera;
     }
 
     private void OnPlayerReached()

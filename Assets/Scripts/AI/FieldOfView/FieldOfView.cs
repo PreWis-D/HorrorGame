@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using Zenject;
 
 public class FieldOfView : MonoBehaviour
 {
@@ -8,10 +9,10 @@ public class FieldOfView : MonoBehaviour
     [Range(0, 360)][SerializeField] private float _angle;
     [SerializeField] private float _delay = 0.2f;
 
-    [SerializeField] private Player _player;
-
     [SerializeField] private LayerMask _playerMask;
     [SerializeField] private LayerMask _obstructionMask;
+
+    private Player _player;
 
     public bool CanSeePlayer { get; private set; }
 
@@ -22,6 +23,12 @@ public class FieldOfView : MonoBehaviour
 
     public event UnityAction<Player> PlayerSpotted;
     public event UnityAction PlayerMissed;
+
+    [Inject]
+    private void Construct(Player player)
+    {
+        _player = player;
+    }
 
     private void Start()
     {

@@ -1,21 +1,29 @@
 using EvolveGames;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class PausePanel : Panel
 {
     [SerializeField] private GameObject _panel;
-    [SerializeField] KeyCode BackKey = KeyCode.Escape;
-    [SerializeField] PlayerController _player;
-    [SerializeField] private PlayerCanvas _escImagePause;
+    [SerializeField] private KeyCode BackKey = KeyCode.Escape;
     [SerializeField] private Button _audioButton;
     [SerializeField] private Button _exitToMenuButton;
     [SerializeField] private Image _markImage;
     [SerializeField] private Level _level;
 
+    private PlayerController _player;
+    private PlayerCanvas _escImagePause;
     private bool _isAudioOn = true;
     private bool _isPaused = false;
     private PlayerInput _playerInput;
+
+    [Inject]
+    private void Construct(Player player)
+    {
+        _player = player.GetComponent<PlayerController>();
+        _escImagePause = player.GetComponentInChildren<PlayerCanvas>();
+    }
 
     private void Awake()
     {

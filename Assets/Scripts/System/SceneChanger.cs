@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,7 +7,7 @@ public class SceneChanger : MonoBehaviour
     [SerializeField] private int _minCircledLevel;
     [SerializeField] private int _maxCircledLevel;
 
-    private int _menuSceneId = 1;
+    private const int _menuSceneId = 0;
 
     public void LoadLevel(int targetlevel)
     {
